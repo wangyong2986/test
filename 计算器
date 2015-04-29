@@ -1,0 +1,332 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.text.DecimalFormat;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBoxMenuItem;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JRadioButtonMenuItem;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+import javax.swing.UIManager;
+
+@SuppressWarnings("serial")
+public class Calculator extends JFrame {
+	private JTextField jtf;
+	private JPanel panel1, panel2, panel3, panel4;
+	private num numActionListener;
+	private boolean IfResult = true;
+	private String oper = "=";
+	private double result = 0;
+	private JMenuBar mybar;
+	private JMenu menu1, menu2, menu3;
+	private JMenuItem edititem1, edititem2, help1, help2;
+	private JRadioButtonMenuItem seeitem1, seeitem2;
+	private JCheckBoxMenuItem seeitem3;
+	private ButtonGroup bgb;
+	private DecimalFormat df;
+
+	private boolean flag = false;
+
+	public Calculator(String title) {
+		super(title);
+		this.setLayout(new BorderLayout(10, 5));
+		panel1 = new JPanel(new GridLayout(1, 3, 10, 10));
+		panel2 = new JPanel(new GridLayout(4, 5, 5, 5));
+		panel3 = new JPanel(new BorderLayout(5, 5));
+		panel4 = new JPanel(new GridLayout(5, 1, 3, 5));
+
+		df = new DecimalFormat("0.#####");
+
+		mybar = new JMenuBar();
+		menu1 = new JMenu("编辑(E)");
+		menu2 = new JMenu("查看(V)");
+		menu3 = new JMenu("帮助(H)");
+
+		menu1.setMnemonic('E');
+		menu2.setMnemonic('V');
+		menu3.setMnemonic('H');
+
+		menu1.setFont(new Font("宋体", Font.PLAIN, 12));
+		menu2.setFont(new Font("宋体", Font.PLAIN, 12));
+		menu3.setFont(new Font("宋体", Font.PLAIN, 12));
+
+		edititem1 = new JMenuItem("复制(C)");
+		edititem2 = new JMenuItem("粘贴(P)");
+
+		edititem1.setIcon(new ImageIcon("icons/copy.png"));
+		edititem2.setIcon(new ImageIcon("icons/paste.png"));
+
+		bgb = new ButtonGroup();
+
+		seeitem1 = new JRadioButtonMenuItem("标准型(T)");
+		seeitem2 = new JRadioButtonMenuItem("科学型(S)");
+		seeitem3 = new JCheckBoxMenuItem("数字分组(I)");
+
+		help1 = new JMenuItem("关于计算器(A)");
+		help2 = new JMenuItem("帮助主题(H)");
+
+		help1.addActionListener(new clear());
+
+		help1.setIcon(new ImageIcon("icons/about.png"));
+		help2.setIcon(new ImageIcon("icons/help.png"));
+
+		bgb.add(seeitem1);
+		bgb.add(seeitem2);
+
+		menu1.add(edititem1);
+		menu1.add(edititem2);
+
+		menu2.add(seeitem1);
+		menu2.add(seeitem2);
+		menu2.addSeparator();
+		menu2.add(seeitem3);
+
+		menu3.add(help1);
+		menu3.addSeparator();
+		menu3.add(help2);
+
+		mybar.add(menu1);
+		mybar.add(menu2);
+		mybar.add(menu3);
+		this.setJMenuBar(mybar);
+
+		edititem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C,
+				InputEvent.CTRL_MASK));
+
+		edititem2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P,
+				InputEvent.CTRL_MASK));
+
+		seeitem1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_T,
+				InputEvent.CTRL_MASK));
+
+		seeitem2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S,
+				InputEvent.CTRL_MASK));
+
+		seeitem3.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_I,
+				InputEvent.CTRL_MASK));
+
+		help1.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A,
+				InputEvent.CTRL_MASK));
+		help2.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_H,
+				InputEvent.CTRL_MASK));
+
+		jtf = new JTextField(20);
+		jtf.setEditable(false);
+		jtf.setBackground(Color.white);
+		jtf.setHorizontalAlignment(JTextField.RIGHT);
+		jtf.setText("0");
+		jtf.setBorder(BorderFactory.createLoweredBevelBorder());
+
+		numActionListener = new num();
+		init();
+
+	}
+
+	public void init() {
+		// panel 面板按钮的添加
+
+		addButton(panel1, "Blackspace", new clear(), Color.red);
+		addButton(panel1, "CE", null, Color.red);
+		addButton(panel1, "C", new clear(), Color.red);
+
+		addButton(panel2, "7", numActionListener, Color.blue);
+		addButton(panel2, "8", numActionListener, Color.blue);
+		addButton(panel2, "9", numActionListener, Color.blue);
+		addButton(panel2, "/", new signs(), Color.red);
+		addButton(panel2, "sqrt", new signs(), Color.blue);
+
+		addButton(panel2, "4", numActionListener, Color.blue);
+		addButton(panel2, "5", numActionListener, Color.blue);
+		addButton(panel2, "6", numActionListener, Color.blue);
+		addButton(panel2, "*", new signs(), Color.red);
+		addButton(panel2, "%", new signs(), Color.blue);
+
+		addButton(panel2, "1", numActionListener, Color.blue);
+		addButton(panel2, "2", numActionListener, Color.blue);
+		addButton(panel2, "3", numActionListener, Color.blue);
+		addButton(panel2, "-", new signs(), Color.red);
+		addButton(panel2, "1/x", new signs(), Color.blue);
+
+		addButton(panel2, "0", numActionListener, Color.blue);
+		addButton(panel2, "-/+", new clear(), Color.blue);
+		addButton(panel2, ".", new dot(), Color.blue);
+		addButton(panel2, "+", new signs(), Color.red);
+		addButton(panel2, "=", new signs(), Color.red);
+
+		JButton btns = new JButton("");
+
+		btns.setBorder(BorderFactory.createLoweredBevelBorder());
+		btns.setEnabled(false);
+		btns.setPreferredSize(new Dimension(10, 10));
+		// panel4面板按钮的添加
+		panel4.add(btns);
+		addButton(panel4, "MC", null, Color.red);
+		addButton(panel4, "MR", null, Color.red);
+		addButton(panel4, "MS", null, Color.red);
+		addButton(panel4, "M+", null, Color.red);
+		// 将面板添加倒顶层容器中
+
+		panel3.add(panel1, BorderLayout.NORTH);
+		panel3.add(panel2, BorderLayout.CENTER);
+		add(jtf, BorderLayout.NORTH);
+		add(panel3);
+		add(panel4, BorderLayout.WEST);
+
+		pack();
+		// this.setResizable(false);
+		this.setLocation(300, 200);
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	}
+
+	// 按钮的添加方法
+	public void addButton(JPanel p, String name, ActionListener action, Color c) {
+		JButton btn = new JButton(name);
+		p.add(btn);
+		btn.setForeground(c);
+		btn.addActionListener(action);
+	}
+
+	public void addButton(JPanel p, String name, ActionListener action) {
+		JButton btn = new JButton(name);
+		p.add(btn);
+		btn.addActionListener(action);
+	}
+
+	public void getResult(double x) {
+		if (oper.equals("+")) {
+			result += x;
+		} else if (oper.equals("-"))
+			result -= x;
+		else if (oper.equals("*"))
+			result *= x;
+		else if (oper.equals("/"))
+			result /= x;
+		else if (oper.equals("="))
+			result = x;
+		else if (oper.equals("s"))
+			result = Math.sqrt(x);
+		jtf.setText(df.format(result));
+	}
+
+	class num implements ActionListener {
+
+		public void actionPerformed(ActionEvent evt) {
+			String str = evt.getActionCommand();
+			if (IfResult) {
+				jtf.setText("");
+				IfResult = false;
+
+			}
+
+			jtf.setText(jtf.getText().trim() + str);
+			if (jtf.getText().equals("0")) {
+				jtf.setText("0");
+				IfResult = true;
+				flag = true;
+			}
+		}
+
+	}
+
+	class signs implements ActionListener {
+
+		public void actionPerformed(ActionEvent event) {
+			String command = event.getActionCommand();
+			if (command.equals("sqrt")) {
+				double i = Double.parseDouble(jtf.getText());
+				if (i >= 0) {
+					jtf.setText(String.valueOf(df.format(Math.sqrt(i))));
+				} else
+					jtf.setText("负数不能开平根!!");
+			} else if (command.equals("1/x")) {
+				if (Double.parseDouble(jtf.getText()) == 0) {
+					jtf.setText("除数不能为零");
+				} else
+					jtf.setText(df.format((1 / Double.parseDouble(jtf.getText()
+							.trim()))));
+			} else if (command.equals("%")) {
+				jtf.setText(df.format(Double.parseDouble(jtf.getText().trim()) / 100));
+			} else {
+				// 测试点
+				if (flag)
+					IfResult = false;
+				if (IfResult) {
+					oper = command;
+				} else {
+					getResult(Double.parseDouble(jtf.getText()));
+					oper = command;
+					IfResult = true;
+				}
+			}
+		}
+	}
+
+	// 清除的一些按钮类监听对象。
+	class clear implements ActionListener {
+		public void actionPerformed(ActionEvent arg0) {
+			String getaction = arg0.getActionCommand();
+			if (getaction.equals("C")) {
+				jtf.setText("0");
+				result = 0;
+				IfResult = true;
+			} else if (getaction.equals("-/+")) {
+				double i = 0 - Double.parseDouble(jtf.getText().trim());
+				jtf.setText(df.format(i));
+
+			} else if (getaction.equals("Blackspace")) {
+				// 测试点
+				if (Double.parseDouble(jtf.getText()) > 0
+						|| jtf.getText().charAt(0) == '负') {
+					if (jtf.getText().length() > 1) {
+						jtf.setText(jtf.getText().substring(0,
+								jtf.getText().length() - 1));
+					} else {
+						IfResult = true;
+						jtf.setText("0");
+					}
+				} else {
+					if (jtf.getText().length() > 2
+							|| jtf.getText().charAt(0) == '负') {
+						jtf.setText(jtf.getText().substring(0,
+								jtf.getText().length() - 1));
+					} else {
+						IfResult = true;
+						jtf.setText("0");
+					}
+				}
+			}
+		}
+	}
+
+	// 内部类
+	class dot implements ActionListener {
+
+		public void actionPerformed(ActionEvent evt) {
+			IfResult = false;
+			if (jtf.getText().trim().indexOf(".") == -1)
+				jtf.setText(jtf.getText() + ".");
+
+		}
+	}
+
+	public static void main(String[] args) throws Exception {
+		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		new Calculator("Java版计算器").setVisible(true);
+
+	}
+
+}
