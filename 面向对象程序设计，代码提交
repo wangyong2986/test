@@ -1,0 +1,2220 @@
+Enter file contents here
+类一
+
+class Book extends JFrame implements ActionListener
+
+{
+
+       JButton QueryScore=new JButton("图书查询");
+
+       JButton  QueryXuefen=new JButton("图书入库");
+
+       JButton  jiangfa=new JButton("图书删除");
+
+       JButton  xuanke=new JButton("图书概览");
+
+       JButton  gaiMima=new JButton("修改密码");
+
+       JMenuBar mb = new JMenuBar();//菜单栏
+
+       JPanel jp=new JPanel();//用来填放子模块
+
+       Container cp=getContentPane();
+
+    String     username;
+
+       Book(){}
+
+    Book(String username)
+
+       {
+
+              this.username=username;
+
+              mb.add(QueryScore);
+
+              mb.add(QueryXuefen);
+
+              mb.add(jiangfa);
+
+              mb.add(xuanke);
+
+              mb.add(gaiMima);
+
+        cp.add(mb,"North");
+
+             
+
+              // 设置边框
+
+           jp.setBorder(BorderFactory.createTitledBorder(BorderFactory
+
+                            .createLineBorder(Color.blue, 2),null,
+
+                            TitledBorder.CENTER, TitledBorder.TOP));
+
+              jp.setLayout(new BorderLayout());
+
+         JLabel label1 = new JLabel(new ImageIcon("4.jpg"));
+
+              jp.add(label1);
+
+       /* JLabel  JL=new JLabel("<html><font color=#CC00FF size='7'><i>欢迎登陆</i></font>",SwingConstants.CENTER);
+
+           jp.add(JL,"North");*/
+
+              JLabel label2 = new JLabel(new ImageIcon("2.jpg"));
+
+              //jp.add(label2,"South");
+
+              JScrollPane scrollpane=new JScrollPane(jp);
+
+              cp.add(scrollpane);
+
+              setTitle("欢迎登陆");
+
+ 
+
+ 
+
+              Toolkit kit=Toolkit.getDefaultToolkit();
+
+              Dimension screen=kit.getScreenSize();
+
+              int x=screen.width;                             /*取得显示器窗口的宽度*/
+
+              int y=screen.height;                                   /*取得显示器窗口的高度*/
+
+              //setSize(x,y); /*让系统窗口平铺整个显示器窗口*/
+
+ 
+
+             setSize(600,600);                       
+
+           int xcenter=(x-600)/2;
+
+           int ycenter=(y-600)/2;
+
+           setLocation(xcenter,ycenter);/*显示在窗口中央*/
+
+             
+
+              setVisible(true);                                        
+
+              setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+              //注册临听器
+
+              QueryScore.addActionListener(this);
+
+              QueryXuefen.addActionListener(this);
+
+              jiangfa.addActionListener(this);
+
+              xuanke.addActionListener(this);
+
+              gaiMima.addActionListener(this);
+
+       }
+
+       public void actionPerformed(ActionEvent e)
+
+       {
+
+              String cmd=e.getActionCommand();
+
+              if (cmd.equals("图书查询"))
+
+              {
+
+                     new QueryBook();
+
+              }
+
+              if (cmd.equals("图书入库"))
+
+              {
+
+                     new BookIn();
+
+              }
+
+              if (cmd.equals("图书删除"))
+
+              {
+
+                     new RemoveBook();
+
+              }
+
+              if (cmd.equals("图书概览"))
+
+              {
+
+                     new BookBrower().showRecord();
+
+              }
+
+              if (cmd.equals("修改密码"))
+
+              {
+
+                     new UpdateMima(username);
+
+              }
+
+ 
+
+ 
+
+       }
+
+ 
+
+       public static void main(String[]args)
+
+       {
+
+              new Book("");
+
+             
+
+       }
+
+ 
+
+      
+
+}
+
+class Book extends JFrame implements ActionListener
+
+{
+
+       JButton QueryScore=new JButton("图书查询");
+
+       JButton  QueryXuefen=new JButton("图书入库");
+
+       JButton  jiangfa=new JButton("图书删除");
+
+       JButton  xuanke=new JButton("图书概览");
+
+       JButton  gaiMima=new JButton("修改密码");
+
+       JMenuBar mb = new JMenuBar();//菜单栏
+
+       JPanel jp=new JPanel();//用来填放子模块
+
+       Container cp=getContentPane();
+
+    String     username;
+
+       Book(){}
+
+    Book(String username)
+
+       {
+
+              this.username=username;
+
+              mb.add(QueryScore);
+
+              mb.add(QueryXuefen);
+
+              mb.add(jiangfa);
+
+              mb.add(xuanke);
+
+              mb.add(gaiMima);
+
+        cp.add(mb,"North");
+
+             
+
+              // 设置边框
+
+           jp.setBorder(BorderFactory.createTitledBorder(BorderFactory
+
+                            .createLineBorder(Color.blue, 2),null,
+
+                            TitledBorder.CENTER, TitledBorder.TOP));
+
+              jp.setLayout(new BorderLayout());
+
+         JLabel label1 = new JLabel(new ImageIcon("4.jpg"));
+
+              jp.add(label1);
+
+       /* JLabel  JL=new JLabel("<html><font color=#CC00FF size='7'><i>欢迎登陆</i></font>",SwingConstants.CENTER);
+
+           jp.add(JL,"North");*/
+
+              JLabel label2 = new JLabel(new ImageIcon("2.jpg"));
+
+              //jp.add(label2,"South");
+
+              JScrollPane scrollpane=new JScrollPane(jp);
+
+              cp.add(scrollpane);
+
+              setTitle("欢迎登陆");
+
+ 
+
+ 
+
+              Toolkit kit=Toolkit.getDefaultToolkit();
+
+              Dimension screen=kit.getScreenSize();
+
+              int x=screen.width;                             /*取得显示器窗口的宽度*/
+
+              int y=screen.height;                                   /*取得显示器窗口的高度*/
+
+              //setSize(x,y); /*让系统窗口平铺整个显示器窗口*/
+
+ 
+
+             setSize(600,600);                       
+
+           int xcenter=(x-600)/2;
+
+           int ycenter=(y-600)/2;
+
+           setLocation(xcenter,ycenter);/*显示在窗口中央*/
+
+             
+
+              setVisible(true);                                        
+
+              setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+              //注册临听器
+
+              QueryScore.addActionListener(this);
+
+              QueryXuefen.addActionListener(this);
+
+              jiangfa.addActionListener(this);
+
+              xuanke.addActionListener(this);
+
+              gaiMima.addActionListener(this);
+
+       }
+
+       public void actionPerformed(ActionEvent e)
+
+       {
+
+              String cmd=e.getActionCommand();
+
+              if (cmd.equals("图书查询"))
+
+              {
+
+                     new QueryBook();
+
+              }
+
+              if (cmd.equals("图书入库"))
+
+              {
+
+                     new BookIn();
+
+              }
+
+              if (cmd.equals("图书删除"))
+
+              {
+
+                     new RemoveBook();
+
+              }
+
+              if (cmd.equals("图书概览"))
+
+              {
+
+                     new BookBrower().showRecord();
+
+              }
+
+              if (cmd.equals("修改密码"))
+
+              {
+
+                     new UpdateMima(username);
+
+              }
+
+ 
+
+ 
+
+       }
+
+ 
+
+       public static void main(String[]args)
+
+       {
+
+              new Book("");
+
+             
+
+       }
+
+ 
+
+      
+
+}
+
+ 
+
+类二
+
+class RemoveBook    implements  ActionListener
+
+{  
+
+  
+
+       JFrame f;
+
+       Container cp;
+
+       JPanel jpS,jpanelWest;
+
+       JButton  jbt1,jbt2,jbt3;//按钮，查询、取消、修改
+
+       JLabel label,L;                            //标签：请输入学号
+
+       JTextField tf;    //定义文本框
+
+       JTable table;//用来接收数据库中返回的信息
+
+    Object columnName[]={"图书名","图书号","单价","作者","出版社","入库时间"};
+
+    Object ar[][] =new Object[80][6];
+
+       String sno;
+
+       String count="xx";
+
+      
+
+    RemoveBook()
+
+   {
+
+       f=new JFrame();
+
+       cp=f.getContentPane(); // 初始化面板、按钮、标签、文本框
+
+       jpS=new JPanel();      
+
+    jpanelWest=new JPanel();
+
+      
+
+       //------------------------------------------------
+
+       jbt1=new JButton("查询");  
+
+       jbt2=new JButton("取消");
+
+    jbt3=new JButton("删除");
+
+      
+
+       //------------------------------------------------
+
+       label=new JLabel("<html><font color=#CC00FF size='4'>请输入要删除的图书名：</font>",SwingConstants.CENTER);
+
+       label.setForeground(Color.blue);
+
+       L=new JLabel("该种图书共有"+count+"本");
+
+       //------------------------------------------------
+
+    table=new JTable(ar,columnName);//ar存放表中的数据，columnname表示列名
+
+       JScrollPane scrollpane = new JScrollPane(table);
+
+ 
+
+ 
+
+       //------------------------------------------------
+
+       tf=new JTextField(18);
+
+   
+
+       //------------------------------------------------
+
+      
+
+       //------------------------------------------------
+
+       //布局,添加控件
+
+      
+
+       jpS.add(jbt1);
+
+      
+
+       jpS.add(jbt2);
+
+       jpS.add(jbt3);
+
+      
+
+      
+
+       JPanel jpanel=new JPanel();
+
+       jpanel.add(label);
+
+       jpanel.add(tf);
+
+      
+
+      
+
+       JPanel pp4=new JPanel();
+
+    JPanel jpE=new JPanel();
+
+      
+
+       cp.add(jpanel,"North");
+
+       JPanel jp=new JPanel();
+
+       //jp.add(scrollpane);
+
+       JPanel p=new JPanel();//用来放两个表
+
+       p.setLayout(new BorderLayout());
+
+      
+
+       p.add(L,"North");
+
+       p.add(scrollpane);
+
+  
+
+       cp.add(pp4,"West");
+
+       cp.add(p,"Center");
+
+    cp.add(jpS,"South");
+
+        
+
+       cp.add(jpE,"East");
+
+      
+
+       //------------------------------------------------
+
+     Toolkit kit=Toolkit.getDefaultToolkit();
+
+       Dimension screen=kit.getScreenSize();
+
+       int x=screen.width;                             /*取得显示器窗口的宽度*/
+
+       int y=screen.height;                                   /*取得显示器窗口的高度*/
+
+       f.setSize(400,330);
+
+        int xcenter=(x-350)/2;
+
+        int ycenter=(y-330)/2;
+
+        f.setLocation(xcenter,ycenter);/*显示在窗口中央*/
+
+        f.setVisible(true);
+
+   //-------------------------------------------------
+
+    jbt1.addActionListener(this);//注册监听器
+
+    jbt2.addActionListener(this);
+
+    jbt3.addActionListener(this);
+
+   
+
+    /*f.addWindowListener(new WindowAdapter(){
+
+                     public void windowClosing(WindowEvent e){
+
+                            System.exit(0);
+
+                     }
+
+              }
+
+              );*/
+
+       }
+
+       //------------------------------------------------
+
+       int i=0;
+
+   public void showRecord(String ql)
+
+       {
+
+              while(i>=0)
+
+                     {    
+
+                     ar[i][0]="";
+
+                     ar[i][1]="";
+
+                     ar[i][2]="";
+
+                     ar[i][3]="";
+
+                     ar[i][4]="";
+
+                     ar[i][5]="";
+
+                     i--;
+
+                     }
+
+                     i=0;
+
+ 
+
+ 
+
+        try{
+
+                     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+
+                 }catch(ClassNotFoundException e){System.out.println("加载驱动程序失败!");}
+
+              try{
+
+                      String url = "jdbc:odbc:driver={Microsoft Access Driver (*.mdb)};DBQ=Book.mdb";//直接使用当前类目录下的数据库文件
+
+                      Connection con=DriverManager.getConnection(url);
+
+                      Statement sql;            
+
+                      String s="select * from book  where 图书名 ='"+ql +"'";
+
+              sql=con.createStatement();
+
+                       ResultSet rs=sql.executeQuery(s);
+
+                      
+
+           
+
+                      while(rs.next())
+
+                 {
+
+                         String bname=rs.getString(1);
+
+                            String bno=rs.getString(2);
+
+                            String price=rs.getString(3);
+
+                            String writer=rs.getString(4);
+
+                            String publish=rs.getString(5);
+
+                            String indate=rs.getString(6);
+
+                            ar[i][0]=bname;
+
+                            ar[i][1]=bno;
+
+                            ar[i][2]=price;
+
+                            ar[i][3]=writer;
+
+                            ar[i][4]=publish;
+
+                            ar[i][5]=indate;
+
+                            i++;
+
+                       }
+
+                         count=""+i+"";
+
+                           
+
+                            L.setText("该种图书共有"+count+"本");
+
+                           
+
+                            f.repaint();
+
+                    
+
+                             con.close();System.out.println(ar[0][1]);
+
+           }catch(SQLException g)
+
+                            {
+
+                             System.out.println("E Code"+g.getErrorCode());
+
+                             System.out.println("E M"+g.getMessage());
+
+                         }
+
+   
+
+        
+
+ 
+
+       }
+
+      
+
+ 
+
+   public void deleteRecord(int index)
+
+       {
+
+         
+
+        try{
+
+                     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+
+                 }catch(ClassNotFoundException e){System.out.println("加载驱动程序失败!");}
+
+              try{
+
+                     String url = "jdbc:odbc:driver={Microsoft Access Driver (*.mdb)};DBQ=Book.mdb";//直接使用当前类目录下的数据库文件
+
+                     Connection con=DriverManager.getConnection(url);
+
+                     Statement sql;       
+
+                     String ql=(String)(ar[index][1]);
+
+                     String s="delete * from book  where 图书号 ='"+ql +"'";
+
+            sql=con.createStatement();
+
+                      int del=sql.executeUpdate(s);
+
+                       if(del==1)
+
+                    {JOptionPane.showMessageDialog(null,"删除成功！",
+
+                                    "信息", JOptionPane.YES_NO_OPTION);
+
+                             }
+
+                             con.close();
+
+                            f.repaint();
+
+            }catch(SQLException g)
+
+                            {
+
+                            System.out.println("E Code"+g.getErrorCode());
+
+                            System.out.println("E M"+g.getMessage());
+
+                          }
+
+   
+
+        
+
+ 
+
+       }
+
+ 
+
+  public void actionPerformed(ActionEvent e)
+
+       { 
+
+              String remember="";
+
+              String ql="";
+
+               String cmd=e.getActionCommand();
+
+                if(cmd.equals("查询"))
+
+                      
+
+                        {
+
+                      ql=tf.getText().trim();
+
+                            remember=ql;
+
+                         showRecord(ql);
+
+                           
+
+                       }
+
+                 if(cmd.equals("删除"))
+
+                  {
+
+                        int index=table.getSelectedRow();
+
+                        if( index==-1)
+
+                             JOptionPane.showMessageDialog(null,"请选定要删除的表格行",
+
+                                    "输入错误", JOptionPane.YES_NO_OPTION);
+
+ 
+
+                        else{
+
+                               deleteRecord(index);
+
+                           //showRecord(remember);
+
+                          }
+
+                   }
+
+                 if(cmd.equals("取消"))
+
+                               f.hide();
+
+                      
+
+                           
+
+       }
+
+public static void main(String []arg){
+
+                
+
+                 RemoveBook a=new RemoveBook();
+
+}
+
+ 
+
+}
+
+ 
+
+类三
+
+lass BookIn implements ActionListener {
+
+ 
+
+       JFrame f3;
+
+       Container cp;
+
+       JPanel jp1, jp2, jp3, jp4, jp, jpanelWest;
+
+       JButton jbt1, jbt2;// 按钮:确定、取消、
+
+       JLabel label; // 标签
+
+       JTextField tf1, tf2, tf3, tf4, tf5, tf6; // 定义文本框
+
+       JLabel label1, label2, label3, label4;
+
+       String sno;
+
+ 
+
+       BookIn() {
+
+              f3 = new JFrame();
+
+              cp = f3.getContentPane(); // 初始化面板、按钮、标签、文本框
+
+              jp1 = new JPanel();
+
+              jp2 = new JPanel();
+
+              jp3 = new JPanel();
+
+              jp4 = new JPanel();
+
+              jpanelWest = new JPanel();
+
+              jp = new JPanel();
+
+              // ------------------------------------------------
+
+              jbt1 = new JButton("确定");
+
+              jbt2 = new JButton("取消");
+
+ 
+
+              // ------------------------------------------------
+
+              label = new JLabel("<html><font color=#CC00FF size='4'>图书入库</font>",
+
+                            SwingConstants.CENTER);
+
+              label.setForeground(Color.blue);
+
+ 
+
+              // ------------------------------------------------
+
+              tf1 = new JTextField(20);
+
+              tf2 = new JTextField(20);
+
+              tf3 = new JTextField(20);
+
+              tf4 = new JTextField(20);
+
+              tf5 = new JTextField(20);
+
+              tf6 = new JTextField(20);
+
+              // ------------------------------------------------
+
+              // 布局,添加控件
+
+ 
+
+              jp1.add(jbt1);
+
+              jp1.add(jbt2);
+
+ 
+
+              sno = tf4.getText();
+
+ 
+
+              jp1.add(new JLabel("您好" + sno + "欢迎登陆学生信息系统"));
+
+ 
+
+              JPanel jpanel = new JPanel();
+
+              jpanel.add(label);
+
+ 
+
+              JPanel pp4 = new JPanel();
+
+              JPanel jpane4 = new JPanel();
+
+ 
+
+              cp.add(jpanel, "North");
+
+              JPanel pp2 = new JPanel(new GridLayout(6, 1));
+
+              JPanel pp3 = new JPanel();
+
+              pp4.setLayout(new GridLayout(6, 1));
+
+              pp4.add(new JLabel("图书名", SwingConstants.CENTER));
+
+ 
+
+              pp2.add(tf1);
+
+              pp4.add(new JLabel("图书号", SwingConstants.CENTER));
+
+              pp2.add(tf2);
+
+              pp4.add(new JLabel("单  价", SwingConstants.CENTER));
+
+              pp2.add(tf3);
+
+              pp4.add(new JLabel("作  者", SwingConstants.CENTER));
+
+              pp2.add(tf4);
+
+              pp4.add(new JLabel("出版社", SwingConstants.CENTER));
+
+              pp2.add(tf5);
+
+              pp4.add(new JLabel("入库时间", SwingConstants.CENTER));
+
+              pp2.add(tf6);
+
+              pp3.add(jbt1);
+
+ 
+
+              pp3.add(jbt2);
+
+ 
+
+              cp.add(pp4, "West");
+
+              cp.add(pp2, "Center");
+
+              cp.add(pp3, "South");
+
+ 
+
+              cp.add(jpane4, "East");
+
+ 
+
+              // ------------------------------------------------
+
+              Toolkit kit = Toolkit.getDefaultToolkit();
+
+              Dimension screen = kit.getScreenSize();
+
+              int x = screen.width; /* 取得显示器窗口的宽度 */
+
+              int y = screen.height; /* 取得显示器窗口的高度 */
+
+              f3.setSize(350, 330);
+
+              int xcenter = (x - 350) / 2;
+
+              int ycenter = (y - 330) / 2;
+
+              f3.setLocation(xcenter, ycenter);/* 显示在窗口中央 */
+
+              f3.setVisible(true);
+
+              // -------------------------------------------------
+
+              jbt1.addActionListener(this);// 注册监听器
+
+              jbt2.addActionListener(this);
+
+ 
+
+              /*
+
+               * f3.addWindowListener(new WindowAdapter(){ public void
+
+               * windowClosing(WindowEvent e){ System.exit(0); } } );
+
+               */
+
+       }
+
+ 
+
+       // ------------------------------------------------
+
+       public void insertRecord() {
+
+              if (tf1.getText().equals("") || tf2.getText().equals("")
+
+                            || tf3.getText().equals("") || tf4.getText().equals("")
+
+                            || tf5.getText().equals("") || tf6.getText().equals("")) {
+
+                     JOptionPane.showMessageDialog(f3, "请填写图书资料");
+
+                     return;
+
+              }
+
+ 
+
+              try {
+
+                     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+
+              } catch (ClassNotFoundException e) {
+
+                     System.out.println("加载驱动程序失败!");
+
+              }
+
+              try {
+
+                     String url = "jdbc:odbc:driver={Microsoft Access Driver (*.mdb)};DBQ=Book.mdb";// 直接使用当前类目录下的数据库文件
+
+                     Connection con = DriverManager.getConnection(url);
+
+                     Statement sql;
+
+ 
+
+                     String s = "insert into book  values('" + tf1.getText() + "','"
+
+                                   + tf2.getText() + "','" + tf3.getText() + "','"
+
+                                   + tf4.getText() + "','" + tf5.getText() + "','"
+
+                                   + tf6.getText() + "');";
+
+ 
+
+                     // 查询输入的图书号是否在数据库中存在
+
+                     String query = "select * from book where 图书号='" + tf2.getText()
+
+                                   + "'";
+
+                     sql = con.createStatement();
+
+                     ResultSet rs = sql.executeQuery(query);// 返回查询结果集
+
+                     boolean moreRecords = rs.next();// 判断结果集是否有数据
+
+                     if (moreRecords) {
+
+                            JOptionPane.showMessageDialog(f3, "图书号已经被使用，请重新输入");
+
+                            con.close();
+
+                            tf2.setText("");
+
+                            return;
+
+                     }
+
+ 
+
+                     int insert = sql.executeUpdate(s);
+
+                     if (insert == 1) {
+
+                            JOptionPane.showMessageDialog(null, "图书信息录入成功！");
+
+                            tf1.setText("");
+
+                            tf2.setText("");
+
+                            tf3.setText("");
+
+                            tf4.setText("");
+
+                            tf5.setText("");
+
+                            tf6.setText("");
+
+                     }
+
+              } catch (SQLException g) {
+
+                     System.out.println("E Code" + g.getErrorCode());
+
+                     System.out.println("E M" + g.getMessage());
+
+              }
+
+ 
+
+       }
+
+ 
+
+       public void actionPerformed(ActionEvent e) {
+
+              String cmd = e.getActionCommand();
+
+              if (cmd.equals("确定")) {
+
+                     insertRecord();
+
+ 
+
+              }
+
+ 
+
+              else if (cmd.equals("取消"))
+
+                     f3.hide();
+
+ 
+
+       }
+
+ 
+
+       public static void main(String[] arg) {
+
+ 
+
+              BookIn a = new BookIn();
+
+       }
+
+}
+
+类四
+
+class BookBrower    implements  ActionListener
+
+{  
+
+  
+
+       JFrame f;
+
+       Container cp;
+
+       JPanel jpS,jpanelWest;
+
+       JButton  jbt1,jbt2;//按钮，查询、取消、修改
+
+       JLabel label,L;                            //标签
+
+           //定义文本框
+
+       JTable table;//用来接收数据库中返回的信息
+
+    Object columnName[]={"图书名","图书号","单价","作者","出版社","入库时间"};
+
+    Object ar[][] =new Object[80][6];
+
+       String sno;
+
+       String count="xx";
+
+      
+
+    BookBrower()
+
+   {
+
+       f=new JFrame();
+
+       cp=f.getContentPane(); // 初始化面板、按钮、标签、文本框
+
+       jpS=new JPanel();      
+
+    jpanelWest=new JPanel();
+
+      
+
+       //------------------------------------------------
+
+       jbt1=new JButton("确定");  
+
+       jbt2=new JButton("返回");
+
+ 
+
+      
+
+       //------------------------------------------------
+
+       label=new JLabel("<html><font color=#CC00FF size='4'>图书概览</font>",SwingConstants.CENTER);
+
+       label.setForeground(Color.blue);
+
+       L=new JLabel("书库现在共有图书"+count+"本");
+
+       //------------------------------------------------
+
+    table=new JTable(ar,columnName);//ar存放表中的数据，columnname表示列名
+
+       JScrollPane scrollpane = new JScrollPane(table);
+
+ 
+
+ 
+
+       //------------------------------------------------
+
+       //布局,添加控件
+
+      
+
+       jpS.add(jbt1);
+
+      
+
+       jpS.add(jbt2);
+
+      
+
+      
+
+      
+
+       JPanel jpanel=new JPanel();
+
+       jpanel.add(label);
+
+      
+
+      
+
+      
+
+       JPanel pp4=new JPanel();
+
+    JPanel jpE=new JPanel();
+
+      
+
+       cp.add(jpanel,"North");
+
+       JPanel jp=new JPanel();
+
+       //jp.add(scrollpane);
+
+       JPanel p=new JPanel();//用来放两个表
+
+       p.setLayout(new BorderLayout());
+
+      
+
+       p.add(L,"North");
+
+       p.add(scrollpane);
+
+  
+
+       cp.add(pp4,"West");
+
+       cp.add(p,"Center");
+
+    cp.add(jpS,"South");
+
+        
+
+       cp.add(jpE,"East");
+
+      
+
+       //------------------------------------------------
+
+     Toolkit kit=Toolkit.getDefaultToolkit();
+
+       Dimension screen=kit.getScreenSize();
+
+       int x=screen.width;                             /*取得显示器窗口的宽度*/
+
+       int y=screen.height;                                   /*取得显示器窗口的高度*/
+
+        f.setSize(400,330);
+
+        int xcenter=(x-350)/2;
+
+        int ycenter=(y-330)/2;
+
+     f.setLocation(xcenter,ycenter);/*显示在窗口中央*/
+
+         f.setVisible(true);
+
+   //-------------------------------------------------
+
+    jbt1.addActionListener(this);//注册监听器
+
+    jbt2.addActionListener(this);
+
+   
+
+   /* f.addWindowListener(new WindowAdapter(){
+
+                     public void windowClosing(WindowEvent e){
+
+                            System.exit(0);
+
+                     }
+
+              }
+
+              );*/
+
+       }
+
+       //------------------------------------------------
+
+       int i=0;
+
+   public void showRecord()
+
+       {
+
+              while(i>=0)
+
+                     {    
+
+                     ar[i][0]="";
+
+                     ar[i][1]="";
+
+                     ar[i][2]="";
+
+                     ar[i][3]="";
+
+                     ar[i][4]="";
+
+                     ar[i][5]="";
+
+                     i--;
+
+                     }
+
+                     i=0;
+
+ 
+
+ 
+
+        try{
+
+                     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+
+                 }catch(ClassNotFoundException e){System.out.println("加载驱动程序失败!");}
+
+              try{
+
+                      String url = "jdbc:odbc:driver={Microsoft Access Driver (*.mdb)};DBQ=Book.mdb";//直接使用当前类目录下的数据库文件
+
+                      Connection con=DriverManager.getConnection(url);
+
+                                  
+
+                      String s="select * from book ";
+
+             Statement sql=con.createStatement();
+
+                       ResultSet rs=sql.executeQuery(s);
+
+                      
+
+           
+
+                      while(rs.next())
+
+                 {
+
+                         String bname=rs.getString(1);
+
+                            String bno=rs.getString(2);
+
+                            String price=rs.getString(3);
+
+                            String writer=rs.getString(4);
+
+                            String publish=rs.getString(5);
+
+                            String indate=rs.getString(6);
+
+                            ar[i][0]=bname;
+
+                            ar[i][1]=bno;
+
+                            ar[i][2]=price;
+
+                            ar[i][3]=writer;
+
+                            ar[i][4]=publish;
+
+                            ar[i][5]=indate;
+
+                            i++;
+
+                       }
+
+                         count=""+i+"";
+
+                            L.setText("书库现在共有图书"+count+"本");
+
+                            f.repaint();
+
+                    
+
+                             con.close();
+
+           }catch(SQLException g)
+
+                            {
+
+                             System.out.println("E Code"+g.getErrorCode());
+
+                             System.out.println("E M"+g.getMessage());
+
+                         }
+
+   
+
+        }
+
+      
+
+ public void actionPerformed(ActionEvent e)
+
+       { 
+
+             
+
+             
+
+               String cmd=e.getActionCommand();
+
+                if(cmd.equals("确定"))
+
+                      
+
+                        {
+
+                      f.hide();
+
+                           
+
+                       }
+
+                
+
+                 if(cmd.equals("返回"))
+
+                               f.hide();
+
+                      
+
+                           
+
+       }
+
+public static void main(String []arg){
+
+                
+
+                 BookBrower a=new BookBrower();
+
+                 a.showRecord();
+
+}
+
+ 
+
+}
+
+类五
+
+ 
+
+ 
+
+class QueryBook implements ActionListener
+
+{  
+
+  
+
+       JFrame f3;
+
+       Container cp;
+
+       JPanel jp1,jp2,jp3,jp4,jp,jpanelWest;
+
+       JButton  jbt1,jbt2;//按钮，确定、取消
+
+       JLabel label;                        //标签：请输入图书号
+
+       JTextField tf,tf1,tf2,tf3,tf4,tf5,tf6;    //定义文本框
+
+       JLabel label1,label2,label3,label4;
+
+      
+
+    QueryBook()
+
+   {
+
+       f3=new JFrame();
+
+       cp=f3.getContentPane(); // 初始化面板、按钮、标签、文本框
+
+       jp1=new JPanel();       
+
+       jp2=new JPanel();
+
+       jp3=new JPanel();
+
+       jp4=new JPanel();
+
+       jpanelWest=new JPanel();
+
+       jp=new JPanel();
+
+       //------------------------------------------------
+
+       jbt1=new JButton("确定");  
+
+       jbt2=new JButton("取消");
+
+       //------------------------------------------------
+
+       label=new JLabel("<html><font color=#CC00FF size='4'>请输入图书号：</font>",SwingConstants.CENTER);
+
+       label.setForeground(Color.blue);
+
+       tf=new JTextField(20);
+
+    //------------------------------------------------
+
+       tf1=new JTextField(20);
+
+       tf2=new JTextField(20);
+
+       tf3=new JTextField(20);
+
+       tf4=new JTextField(20);
+
+       tf5=new JTextField(20);
+
+    tf6=new JTextField(20);
+
+       //------------------------------------------------
+
+       //布局,添加控件
+
+       JPanel jpanel=new JPanel();
+
+       jpanel.add(label);
+
+       jpanel.add(tf);
+
+      
+
+       JPanel pp4=new JPanel();
+
+    JPanel jpane4=new JPanel();
+
+      
+
+       cp.add(jpanel,"North");
+
+       JPanel pp2=new JPanel(new GridLayout(6,1));
+
+       JPanel pp3=new JPanel();
+
+       pp4.setLayout(new GridLayout(6,1));
+
+       pp4.add(new JLabel("图书名",SwingConstants.CENTER));
+
+      
+
+       pp2.add(tf1);
+
+       pp4.add(new JLabel("图书号",SwingConstants.CENTER));
+
+       pp2.add(tf2);
+
+       pp4.add(new JLabel("单  价",SwingConstants.CENTER));
+
+       pp2.add(tf3);
+
+       pp4.add(new JLabel("作  者",SwingConstants.CENTER));
+
+       pp2.add(tf4);
+
+       pp4.add(new JLabel("出版社",SwingConstants.CENTER));
+
+       pp2.add(tf5);
+
+       pp4.add(new JLabel("入库时间",SwingConstants.CENTER));
+
+       pp2.add(tf6);
+
+       pp3.add(jbt1);
+
+    pp3.add(jbt2);
+
+  
+
+  
+
+       cp.add(pp4,"West");
+
+       cp.add(pp2,"Center");
+
+    cp.add(pp3,"South");
+
+        
+
+       cp.add(jpane4,"East");
+
+      
+
+       //------------------------------------------------
+
+     Toolkit kit=Toolkit.getDefaultToolkit();
+
+       Dimension screen=kit.getScreenSize();
+
+       int x=screen.width;                             /*取得显示器窗口的宽度*/
+
+       int y=screen.height;                                   /*取得显示器窗口的高度*/
+
+       f3.setSize(350,330);
+
+        int xcenter=(x-350)/2;
+
+        int ycenter=(y-330)/2;
+
+        f3.setLocation(xcenter,ycenter);/*显示在窗口中央*/
+
+        f3.setVisible(true);
+
+   //-------------------------------------------------
+
+    jbt1.addActionListener(this);//注册监听器
+
+    jbt2.addActionListener(this);
+
+   
+
+   
+
+    /*f3.addWindowListener(new WindowAdapter(){
+
+                     public void windowClosing(WindowEvent e){
+
+                            System.exit(0);
+
+                     }
+
+              }
+
+              );*/
+
+       }
+
+       //------------------------------------------------
+
+public void showRecord()
+
+       {
+
+        try{
+
+                     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+
+                 }catch(ClassNotFoundException e){System.out.println("加载驱动程序失败!");}
+
+              try{
+
+                     String url = "jdbc:odbc:driver={Microsoft Access Driver (*.mdb)};DBQ=Book.mdb";//直接使用当前类目录下的数据库文件
+
+                     Connection con=DriverManager.getConnection(url);
+
+                     Statement sql;       
+
+                     String ql=tf.getText().trim();
+
+                     String s="select * from book  where 图书号 ='"+ql +"'";
+
+            sql=con.createStatement();
+
+                      ResultSet rs=sql.executeQuery(s);
+
+                      if(rs.next())
+
+                {
+
+                       
+
+                     String bname=rs.getString(1);
+
+                            String bno=rs.getString(2);
+
+                            String price=rs.getString(3);
+
+                            String writer=rs.getString(4);
+
+                            String publish=rs.getString(5);
+
+                            String indate=rs.getString(6);
+
+                            tf1.setText(bname);
+
+                            tf2.setText(bno);
+
+                            tf3.setText(price);
+
+                            tf4.setText(writer);
+
+                            tf5.setText(publish);
+
+                            tf6.setText(indate);
+
+                      }
+
+ 
+
+                else
+
+                    {JOptionPane.showMessageDialog(null,"您输入的图书号不存在，请重新输入",
+
+                                    "输入错误", JOptionPane.YES_NO_OPTION);
+
+                             }
+
+                             con.close();
+
+            }catch(SQLException g)
+
+                            {
+
+                            System.out.println("E Code"+g.getErrorCode());
+
+                            System.out.println("E M"+g.getMessage());
+
+                          }
+
+   
+
+         tf1.setEditable(false);
+
+         tf2.setEditable(false);
+
+         tf3.setEditable(false);
+
+         tf4.setEditable(false);
+
+         tf5.setEditable(false);
+
+         tf6.setEditable(false);
+
+ 
+
+       }
+
+      
+
+ 
+
+public void actionPerformed(ActionEvent e)
+
+       { 
+
+               String cmd=e.getActionCommand();
+
+                  if(cmd.equals("确定"))
+
+                      
+
+                        {
+
+                         showRecord();
+
+                            tf.setText("");
+
+                       }
+
+                                  
+
+                       
+
+                        else if(cmd.equals("取消"))
+
+                               f3.hide();
+
+                      
+
+                           
+
+       }
+
+public static void main(String []arg){
+
+                
+
+                 QueryBook a=new QueryBook();
+
+}
+
+ 
+
+}
+
+ 
+
+类六
+
+ 
+
+class UpdateMima extends JFrame implements ActionListener
+
+{  
+
+  
+
+       JFrame f;
+
+       Container cp;
+
+       JPanel jp1,jp2,jp3,jp4,jp,jpanelWest;
+
+       JButton  jbt1,jbt2;//按钮，确定、取消
+
+       JLabel label;                        //标签：修改密码
+
+       JTextField name;
+
+    JPasswordField tf1,tf2,tf3;    //定义文本框
+
+       JLabel label1,label2,label3,label4;
+
+       String sno;
+
+       UpdateMima(){}
+
+    UpdateMima(String username)
+
+   {
+
+       sno=username;
+
+       f=new JFrame();
+
+       cp=f.getContentPane(); // 初始化
+
+       jp1=new JPanel();      
+
+       jp2=new JPanel();
+
+       jp3=new JPanel();
+
+       jp4=new JPanel();
+
+       jpanelWest=new JPanel();
+
+       jp=new JPanel();
+
+       //------------------------------------------------
+
+       jbt1=new JButton("确定");  
+
+       jbt2=new JButton("取消");
+
+      
+
+      
+
+       //------------------------------------------------
+
+       label=new JLabel("<html><font color=#CC00FF size='4'>修改密码</font>",SwingConstants.CENTER);
+
+       label.setForeground(Color.blue);
+
+       label.setFont(new Font("BOLD",Font.BOLD,15));
+
+       name=new JTextField(20);
+
+    //name.setEditable(false);
+
+      
+
+   
+
+       //------------------------------------------------
+
+       tf1=new JPasswordField(20);
+
+       tf2=new JPasswordField(20);
+
+       tf3=new JPasswordField(20);
+
+      
+
+       //------------------------------------------------
+
+       //布局,添加控件
+
+ 
+
+       jp1.add(jbt1);
+
+       jp1.add(jbt2);
+
+      
+
+       jp1.add(new JLabel("您好"+"xx"+"欢迎登陆学生信息系统"));
+
+      
+
+       JPanel jpanel=new JPanel();
+
+       jpanel.add(label);
+
+      
+
+       JPanel pp4=new JPanel();
+
+    JPanel jpane4=new JPanel();
+
+      
+
+       cp.add(jpanel,"North");
+
+       JPanel pp2=new JPanel(new GridLayout(6,1));
+
+       JPanel pp3=new JPanel();
+
+       pp4.setLayout(new GridLayout(6,1));
+
+       pp4.add(new JLabel("用户名: ",SwingConstants.RIGHT));
+
+       pp2.add(name);
+
+       pp4.add(new JLabel("原密码: ",SwingConstants.RIGHT));
+
+      
+
+       pp2.add(tf1);
+
+       pp4.add(new JLabel(" 新密码: ",SwingConstants.RIGHT));
+
+       pp2.add(tf2);
+
+       pp4.add(new JLabel("确认密码: ",SwingConstants.RIGHT));
+
+       pp2.add(tf3);
+
+       pp2.add(new JLabel());
+
+    JPanel jpbutton=new JPanel();
+
+       jpbutton.add(jbt1);
+
+       jpbutton.add(jbt2);
+
+       pp2.add(jpbutton);
+
+  
+
+      
+
+       //pp3.add(jbt1);
+
+ 
+
+       //pp3.add(jbt2);
+
+  
+
+       cp.add(pp4,"West");
+
+       cp.add(pp2,"Center");
+
+    //cp.add(pp3,"South");
+
+        
+
+       cp.add(jpane4,"East");
+
+      
+
+       //------------------------------------------------
+
+      Toolkit kit=Toolkit.getDefaultToolkit();
+
+        Dimension screen=kit.getScreenSize();
+
+        int x=screen.width;                                  /*取得显示器窗口的宽度*/
+
+        int y=screen.height;
+
+        f.setSize(350,330);                                  /*取得显示器窗口的高度*/
+
+        int xcenter=(x-350)/2;
+
+        int ycenter=(y-330)/2;
+
+        f.setLocation(xcenter,ycenter);/*显示在窗口中央*/
+
+        //f.setTitle("修改密码");
+
+        f.setVisible(true);
+
+  
+
+   //-------------------------------------------------
+
+    jbt1.addActionListener(this);//注册监听器
+
+    jbt2.addActionListener(this);
+
+  
+
+    /*f.addWindowListener(new WindowAdapter(){
+
+                     public void windowClosing(WindowEvent e){
+
+                            System.exit(0);
+
+                     }
+
+              }
+
+              );*/
+
+       }
+
+       public void updateM()
+
+       {
+
+ 
+
+        try{
+
+                     Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
+
+                 }catch(ClassNotFoundException e){System.out.println("加载驱动程序失败!");}
+
+              try{
+
+                     String url = "jdbc:odbc:driver={Microsoft Access Driver (*.mdb)};DBQ=Book.mdb";//直接使用当前类目录下的数据库文件
+
+                     Connection con=DriverManager.getConnection(url);
+
+                     Statement sql=con.createStatement();
+
+                     String uname=name.getText().trim();
+
+                     String queryMima="select * from user where 用户名='"+uname+"'";
+
+                     ResultSet rs=sql.executeQuery(queryMima);
+
+            if(rs.next())
+
+                     {
+
+                           
+
+                      String newMima=tf2.getText().trim();
+
+                String s="update user set 密码='"+newMima+"' where 用户名 ='"+uname +"'";
+
+                sql=con.createStatement();
+
+                         int updateMima=sql.executeUpdate(s);
+
+                         if(updateMima==1)
+
+                    {
+
+                              JOptionPane.showMessageDialog(f,"密码修改成功！");
+
+                             
+
+                             }
+
+                             con.close();
+
+                             f.repaint();
+
+            }else{
+
+                            JOptionPane.showMessageDialog(null,"该用户不存在","警告！",
+
+                                             JOptionPane.YES_NO_OPTION);
+
+                           
+
+                         }
+
+               name.setText("");
+
+                            tf1.setText("");
+
+                            tf2.setText("");
+
+                            tf3.setText("");
+
+                } catch(SQLException g)
+
+                            {
+
+                            System.out.println("E Code"+g.getErrorCode());
+
+                            System.out.println("E M"+g.getMessage());
+
+                          }
+
+ 
+
+       }
+
+ 
+
+       //------------------------------------------------
+
+       public void actionPerformed(ActionEvent e)
+
+       {
+
+              String cmd=e.getActionCommand();
+
+                  if(cmd.equals("确定"))
+
+                      {
+
+                             if(name.getText().equals("")||tf1.getText().equals("")||tf2.getText().equals("")||tf3.getText().equals(""))
+
+                        {
+
+                   JOptionPane.showMessageDialog(null,"请填写用户的所有信息","提示",
+
+                                             JOptionPane.YES_NO_OPTION);
+
+                         return;
+
+                        }
+
+                           
+
+                  if(tf2.getText().trim().equals(tf3.getText().trim()))
+
+                      updateM();
+
+                      
+
+                       }
+
+                     else if(cmd.equals("取消"))
+
+                               f.hide();
+
+       }
+
+ 
+
+   public static void main(String[]args)
+
+        {
+
+         new UpdateMima("");
+
+        }
+
+}
+
+ 
